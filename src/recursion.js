@@ -23,15 +23,24 @@ var sum = function(array) {
 	if (n === 0) {
 		return 0;
 	}
-	if (n === 1) {
-		return arr[0];
-	}
 	return (arr[n-1] + sum(arr.slice(0, n-1)));
 };
 
 // 3. Sum all numbers in an array containing nested arrays.
 // Example: arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(array) {
+	var arr = array.slice();
+	var n = arr.length;
+
+	if (Array.isArray(arr[n-1])) {
+		var j = arr[n-1].length;
+		var nestedSum = arraySum(arr[n-1].slice(0, j));
+		return nestedSum + arraySum(arr.slice(0, n-1));
+	}
+	if (n === 0) {
+		return 0;
+	}
+	return (arr[n-1] + arraySum(arr.slice(0, n-1)));
 };
 
 // 4. Check if a number is even.
